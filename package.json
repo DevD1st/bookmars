@@ -1,0 +1,29 @@
+{
+  "name": "bookmars",
+  "version": "1.0.0",
+  "description": "A random bookproject I decided to work on",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "test",
+    "build": "tsc --watch",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts",
+    "start:dev": "tsc --watch & nodemon dist/index.js",
+    "start:prod": "node dist/index.js"
+  },
+  "keywords": [
+    "book"
+  ],
+  "author": "DevD1st",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "postgres": "^3.4.5",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.20"
+  }
+}
