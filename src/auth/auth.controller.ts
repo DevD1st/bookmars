@@ -3,6 +3,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import { CreateUserRequestDto } from "../user/dtos/create-user-request.dto";
 import { validateDto } from "../util";
 import { userService } from "../user/user.service";
+import { SigninRequestDto } from "../user/dtos/signin-request.dto";
 
 const authController = Router();
 
@@ -16,6 +17,19 @@ authController.post(
     if (!isValid) return;
 
     const resObj = await userService.signup(dto);
+    res.status(resObj.statusCode).json(resObj);
+  }
+);
+
+authController.post(
+  "/signin",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const dto = plainToInstance(SigninRequestDto, req.body);
+
+    const isValid = await validateDto(dto, next);
+    if (!isValid) return;
+
+    const resObj = await userService.signin(dto);
     res.status(resObj.statusCode).json(resObj);
   }
 );

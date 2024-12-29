@@ -1,0 +1,21 @@
+### signup
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+    "email": "test@gmail.com",
+    "firstName": "test",
+    "lastName": "testAgain",
+    "password": "123456",
+    "dob": "1999-02-03",
+    "profilePicture": "https://something.com/man.mp4"
+}
+
+### signin
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+    "email": "test@gmail.com",
+    "password": "123456"
+}

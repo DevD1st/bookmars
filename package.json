@@ -4,12 +4,12 @@
   "description": "A random bookproject I decided to work on",
   "main": "dist/index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test && test",
+    "test": "cross-env NODE_ENV=test test",
     "build": "tsc --watch",
-    "start": "cross-env NODE_ENV=production && node dist/index.js",
-    "dev": "cross-env NODE_ENV=development && nodemon src/index.ts",
-    "start:dev": "cross-env NODE_ENV=development nodemon dist/index.js && tsc --watch",
-    "start:prod": "cross-env NODE_ENV=production && node dist/index.js"
+    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon src/index.ts",
+    "start:dev": "cross-env NODE_ENV=development tsc --watch | cross-env NODE_ENV=development nodemon dist/index.js",
+    "start:prod": "cross-env NODE_ENV=production node dist/index.js"
   },
   "keywords": [
     "book"
