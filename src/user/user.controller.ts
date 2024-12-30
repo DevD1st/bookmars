@@ -12,10 +12,10 @@ userController.get(
       const url = new URL("http://" + process.env.HOST + req.url);
       const populate = url.searchParams.get("populate");
 
-      const { email } = authenticate(req);
+      const { email, id } = authenticate(req);
 
       const resObj = await userService.fetchUser(
-        { email },
+        { email, id },
         populate || undefined
       );
       res.status(resObj.statusCode).json(resObj);

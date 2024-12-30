@@ -3,7 +3,7 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "email": "test@gmail.com",
+    "email": "test1@gmail.com",
     "firstName": "test",
     "lastName": "testAgain",
     "password": "123456",
@@ -16,10 +16,19 @@ POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-    "email": "test@gmail.com",
+    "email": "test1@gmail.com",
     "password": "123456"
 }
 
 ### fetch user
-GET http://localhost:3000/user/fetch?populate=profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwiaWF0IjoxNzM1NTYyOTU5LCJleHAiOjE3MzU1NjY1NTl9.mD2u_0Y52LA-kfpnGMtg-MbpHLjy055pQTuQO1e2_Jk
+GET http://localhost:3000/user/fetch?populate=profile,authoredBooks
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQGdtYWlsLmNvbSIsImlkIjoyMSwiaWF0IjoxNzM1NTY4NTc2LCJleHAiOjE3MzU1NzIxNzZ9.q9K2FRtAP0s1_F58U_-Yela7pBoNDhCCW7LdQJxx6is
+
+### Author book
+POST http://localhost:3000/book
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQGdtYWlsLmNvbSIsImlkIjoyMSwiaWF0IjoxNzM1NTY4NTc2LCJleHAiOjE3MzU1NzIxNzZ9.q9K2FRtAP0s1_F58U_-Yela7pBoNDhCCW7LdQJxx6is
+Content-Type: application/json
+
+{
+    "title": "My lil handbook"
+}

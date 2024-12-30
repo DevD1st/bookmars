@@ -18,6 +18,7 @@ export const validateDto = async (dto: object, next: NextFunction) => {
 };
 
 export interface JwtPayload {
+  id: number;
   email: string;
 }
 

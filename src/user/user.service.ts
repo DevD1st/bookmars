@@ -20,19 +20,22 @@ class UserService {
       profilePicture: dto.profilePicture,
     });
     user._password = await bcrypt.hash(dto.password, 12);
-    user.auth = [
-      plainToInstance(Auth, { token: generateToken({ email: dto.email }) }),
-    ];
     user.authoredBooks = dto.authoredBooks?.map((book) =>
       plainToInstance(Book, book)
     )!;
-
     const savedUser = await user.save();
+
+    savedUser.auth = [
+      plainToInstance(Auth, {
+        token: generateToken({ email: dto.email, id: savedUser.id }),
+      }),
+    ];
+    const savedUserWithAuth = await savedUser.save();
 
     return new ResponseDto(
       201,
       "User created successfullly.",
-      instanceToPlain(savedUser, { excludePrefixes: ["_"] })
+      instanceToPlain(savedUserWithAuth, { excludePrefixes: ["_"] })
     );
   }
 
@@ -53,14 +56,15 @@ class UserService {
     if (!isPasswordCorrect)
       throw new ResponseDto(400, "Email address or password incorrect.");
 
-    const token = generateToken({ email: dto.email });
+    const token = generateToken({ email: dto.email, id: user.id });
     user.auth.push(plainToInstance(Auth, { token }));
 
+    const savedUser = await user.save();
     return new ResponseDto(200, "Signin successful.", {
-      user: instanceToPlain(await user.save(), {
+      user: instanceToPlain(savedUser, {
         excludePrefixes: ["_", "auth"],
       }),
-      token,
+      token: savedUser.auth.at(-1),
     });
   }
 
