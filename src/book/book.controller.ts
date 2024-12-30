@@ -36,4 +36,29 @@ bookController.post(
   }
 );
 
+bookController.patch(
+  "/book-mark",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const url = new URL("http://" + process.env.HOST + req.url);
+      const bookId = +(url.searchParams.get("bookId") || -1);
+
+      const jwtPayload = authenticate(req);
+
+      const resObj = await bookService.bookmarkBook(jwtPayload, bookId);
+    } catch (error: any) {
+      console.error(error);
+
+      res
+        .status(error.statusCode || 400)
+        .json(
+          new ResponseDto(
+            error.statusCode || 400,
+            error.message || "Error occurred."
+          )
+        );
+    }
+  }
+);
+
 export default bookController;

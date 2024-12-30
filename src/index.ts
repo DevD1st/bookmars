@@ -1,3 +1,9 @@
+import * as path from "path";
+import { config } from "dotenv";
+const res = config({
+  path: path.join(process.cwd(), "src", `.env.${process.env.NODE_ENV}`),
+});
+
 import "reflect-metadata";
 import express, { NextFunction, Request, Response } from "express";
 import authController from "./auth/auth.controller";
@@ -6,12 +12,6 @@ import profileController from "./profile/profile.controller";
 import bookController from "./book/book.controller";
 import { ResponseDto } from "./dtos/response.dto";
 import { dataSource } from "./datasource";
-import { config } from "dotenv";
-import * as path from "path";
-
-const res = config({
-  path: path.join(process.cwd(), "src", `.env.${process.env.NODE_ENV}`),
-});
 
 const app = express();
 
