@@ -1,22 +1,36 @@
-import { plainToInstance } from "class-transformer";
 import { NextFunction, Request, Response, Router } from "express";
-import { CreateUserRequestDto } from "./dtos/create-user-request.dto";
-import { validateDto } from "../util";
+import { authenticate, validateDto } from "../util";
 import { userService } from "./user.service";
+import { ResponseDto } from "../dtos/response.dto";
 
 const userController = Router();
 
-userController.post(
-  "signup",
-  async (req: Request, res: Response, next: NextFunction) => {
-    const body = req.body;
-    const dto = plainToInstance(CreateUserRequestDto, body);
+userController.get(
+  "/fetch",
+  async (req: Request, res: Response, _next: NextFunction) => {
+    try {
+      const url = new URL("http://" + process.env.HOST + req.url);
+      const populate = url.searchParams.get("populate");
 
-    const isValid = await validateDto(dto, next);
-    if (!isValid) return;
+      const { email } = authenticate(req);
 
-    const resObj = await userService.signup(dto);
-    res.status(resObj.statusCode).json(resObj);
+      const resObj = await userService.fetchUser(
+        { email },
+        populate || undefined
+      );
+      res.status(resObj.statusCode).json(resObj);
+    } catch (error: any) {
+      console.error(error);
+
+      res
+        .status(error.statusCode || 400)
+        .json(
+          new ResponseDto(
+            error.statusCode || 400,
+            error.message || "Error occurred."
+          )
+        );
+    }
   }
 );
 

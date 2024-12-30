@@ -19,3 +19,7 @@ Content-Type: application/json
     "email": "test@gmail.com",
     "password": "123456"
 }
+
+### fetch user
+GET http://localhost:3000/user/fetch?populate=profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwiaWF0IjoxNzM1NTYyOTU5LCJleHAiOjE3MzU1NjY1NTl9.mD2u_0Y52LA-kfpnGMtg-MbpHLjy055pQTuQO1e2_Jk

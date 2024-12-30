@@ -1,5 +1,5 @@
 import { validate } from "class-validator";
-import { NextFunction } from "express";
+import { NextFunction, Request } from "express";
 import { ResponseDto } from "./dtos/response.dto";
 import * as jwt from "jsonwebtoken";
 
@@ -26,3 +26,8 @@ export const generateToken = (payload: JwtPayload) => {
     expiresIn: "1h",
   });
 };
+
+export function authenticate(req: Request) {
+  const token = req.headers["authorization"]?.split(" ")[1];
+  return jwt.verify(token || "", process.env.JWT_SECRET!) as JwtPayload;
+}
