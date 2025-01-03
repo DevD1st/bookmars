@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { authenticate, validateDto } from "../util";
+import { authenticate } from "../util";
 import { userService } from "./user.service";
 import { ResponseDto } from "../dtos/response.dto";
 

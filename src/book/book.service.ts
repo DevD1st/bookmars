@@ -21,8 +21,6 @@ class BookService {
       .getOne();
     if (!book) return new ResponseDto(400, "Book does not exist.");
 
-    if (1 === 1) return;
-
     const user = await User.findOneBy({ id });
     if (!user) return new ResponseDto(400, "User does not exist.");
 

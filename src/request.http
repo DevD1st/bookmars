@@ -21,8 +21,8 @@ Content-Type: application/json
 }
 
 ### fetch user
-GET http://localhost:3000/user/fetch?populate=profile,authoredBooks
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQGdtYWlsLmNvbSIsImlkIjoyMSwiaWF0IjoxNzM1NTY4NTc2LCJleHAiOjE3MzU1NzIxNzZ9.q9K2FRtAP0s1_F58U_-Yela7pBoNDhCCW7LdQJxx6is
+GET http://localhost:3000/user/fetch?populate=profile,authoredBooks,bookmarkedBooks,auth
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQGdtYWlsLmNvbSIsImlkIjoyMSwiaWF0IjoxNzM1NjQzMDgyLCJleHAiOjE3MzU2NDY2ODJ9.q-z8fviNlgK4I0nmxZoUXHCrfXlq15KsTAhDJ1SNrsA
 
 ### Author book
 POST http://localhost:3000/book
