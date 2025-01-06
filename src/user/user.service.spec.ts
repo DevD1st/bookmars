@@ -1,8 +1,9 @@
 import { Profile } from "../profile/profile.entity";
+import { JwtPayload } from "../util";
 import { CreateUserRequestDto } from "./dtos/create-user-request.dto";
 import { User } from "./user.entity";
 import { userService } from "./user.service";
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 describe("UserService", () => {
   describe("signup", () => {
@@ -44,7 +45,15 @@ describe("UserService", () => {
           save: jest.fn().mockResolvedValueOnce(savedUser),
         });
 
-        jest.spyOn(jwt, "sign").mockImplementationOnce(() => "token");
+        jest.spyOn(jwt, "verify").mockImplementation(
+          () =>
+            ({
+              id,
+              email,
+            } as JwtPayload)
+        );
+
+        jest.spyOn(jwt, "sign").mockImplementationOnce(() => "signed");
 
         const { statusCode, message, data } = await userService.signup(dto);
 
@@ -54,6 +63,4 @@ describe("UserService", () => {
       });
     });
   });
-
-  describe("signin", () => {});
 });
