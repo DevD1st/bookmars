@@ -117,4 +117,28 @@ describe("UserService", () => {
       });
     });
   });
+
+  describe("fetchUser", () => {
+    describe("given valid email address", () => {
+      it("successfully return user", async () => {
+        jest.spyOn(User, "createQueryBuilder").mockReturnValueOnce({
+          where: jest.fn().mockReturnThis(),
+          leftJoinAndSelect: jest.fn().mockReturnThis(),
+          getOne: jest.fn().mockResolvedValueOnce({
+            id,
+            firstName,
+            lastName,
+            email,
+            password,
+            isActive: true,
+          }),
+        } as any);
+
+        const res = await userService.fetchUser({ email, id });
+
+        expect(res.statusCode).toBe(200);
+        expect(res.data).toBeDefined();
+      });
+    });
+  });
 });
