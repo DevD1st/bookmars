@@ -38,4 +38,22 @@ describe("AuthController", () => {
       });
     });
   });
+
+  describe("signin", () => {
+    describe("given valid request body", () => {
+      it("should signin user", async () => {
+        const res = await supertest(app)
+          .post("/auth/signin")
+          .accept("application/json")
+          .send({
+            email: "test@gmail.com",
+            password: "123456",
+          });
+
+        expect(res.body.message).toContain("success");
+        expect(res.status).toBe(200);
+        expect(res.body).toBeDefined();
+      });
+    });
+  });
 });
